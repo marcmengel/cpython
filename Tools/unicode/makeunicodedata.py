@@ -433,6 +433,12 @@ def makeunicodetype(unicode, trace):
             bidirectional = record.bidi_class
             properties = record.binary_properties
             flags = 0
+
+            # let symbols be in Python identifiers
+            if category in ["Sm"]:
+                flags |= XID_START_MASK
+                flags |= XID_CONTINUE_MASK
+
             if category in ["Lm", "Lt", "Lu", "Ll", "Lo"]:
                 flags |= ALPHA_MASK
             if "Lowercase" in properties:
